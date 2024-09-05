@@ -17,18 +17,15 @@ parameters:
 
 variables:
   - ${{ if eq( parameters['environment'], 'develop') }}:
-    - group: Cloud.Automation.Containers.Pipeline.prod
-    - group: AppServices.DR.prod
+    #- group: Cloud.Automation.Containers.Pipeline.prod
     - name: Environment
       value: Prod
   - ${{ elseif eq( parameters['environment'], 'preproduction' ) }}:
-    - group: Cloud.Automation.Containers.Pipeline.preprod
-    - group: AppServices.DR.preprod
+    #- group: Cloud.Automation.Containers.Pipeline.preprod
     - name: Environment
       value: PreProd
   - ${{ else }}:
-    - group: Cloud.Automation.Containers.Pipeline.development
-    - group: AppServices.DR.development
+    #- group: Cloud.Automation.Containers.Pipeline.development
     - name: Environment
       value: Dev
   - name: AgentSource
