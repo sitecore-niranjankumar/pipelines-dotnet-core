@@ -16,12 +16,15 @@ parameters:
   
 
 variables:
-  - name: colour
+  
     ${{ if eq( parameters['environment'], 'develop') }}:
+      - name: colour
       value: "red"
     ${{ elseif eq( parameters['environment'], 'preproduction' ) }}:
+      - name: colour
       value: "yellow"
     ${{ else }}:
+    - name: colour
       value: "purple"
 
 steps:
