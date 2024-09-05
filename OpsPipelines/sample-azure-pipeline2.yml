@@ -9,8 +9,23 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+parameters:
+  - name : environment
+    displayName : Environment
+    type : string
+  
+
+variables:
+  - name: colour
+    ${{ if eq( parameters['environment'], 'develop') }}:
+      value: "red"
+    ${{ elseif eq( parameters['environment'], 'preproduction' ) }}:
+      value: "yellow"
+    ${{ else }}:
+      value: "purple"
+
 steps:
-- script: echo Hello, world!
+- script: echo Hello, world! Color is ${{ variables.colour }}
   displayName: 'Run a one-line script'
 
 - script: |
