@@ -16,19 +16,27 @@ parameters:
   
 
 variables:
-  
-    ${{ if eq( parameters['environment'], 'develop') }}:
-      - name: colour
-      value: "red"
-    ${{ elseif eq( parameters['environment'], 'preproduction' ) }}:
-      - name: colour
-      value: "yellow"
-    ${{ else }}:
-    - name: colour
-      value: "purple"
+  - ${{ if eq( parameters['environment'], 'develop') }}:
+    - group: Cloud.Automation.Containers.Pipeline.prod
+    - group: AppServices.DR.prod
+    - name: Environment
+      value: Prod
+  - ${{ elseif eq( parameters['environment'], 'preproduction' ) }}:
+    - group: Cloud.Automation.Containers.Pipeline.preprod
+    - group: AppServices.DR.preprod
+    - name: Environment
+      value: PreProd
+  - ${{ else }}:
+    - group: Cloud.Automation.Containers.Pipeline.development
+    - group: AppServices.DR.development
+    - name: Environment
+      value: Dev
+  - name: AgentSource
+    value: '1'
+
 
 steps:
-- script: echo Hello, world! Color is ${{ variables.colour }}
+- script: echo Hello, world! Environment is ${{ variables.Environment }} and ${{ variables.AgentSource }}
   displayName: 'Run a one-line script'
 
 - script: |
